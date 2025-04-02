@@ -1,11 +1,14 @@
 ﻿@page "/"
+@using Blazored.Toast.Configuration
 @using BudgetTrackerAppBlazorWebassembly.Models
 @using BudgetTrackerAppBlazorWebassembly.Services
 @inject IExpensiveService ExpensiveService
-
+@inject IToastService ToastService
 
 <PageTitle>Home</PageTitle>
-
+<BlazoredToasts Position="ToastPosition.BottomRight"
+                Timeout="10"
+                ShowProgressBar="true" />
 <div class="container mt-5">
     <h1 class="text-center mb-4">Hello, world!</h1>
     <p class="text-center mb-5">Welcome to your new app.</p>
