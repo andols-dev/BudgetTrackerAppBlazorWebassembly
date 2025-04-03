@@ -11,5 +11,7 @@ namespace BudgetTrackerAppBlazorWebassembly.Services
         decimal? ExpenseNumber { get; set; }
         public decimal TotalExpenses { get; }
         void AddExpense();
+        Task LoadExpensesAsync();
+        Task SaveExpensesAsync();
     }
 }

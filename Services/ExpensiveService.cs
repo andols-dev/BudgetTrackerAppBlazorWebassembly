@@ -1,12 +1,14 @@
 ﻿using BudgetTrackerAppBlazorWebassembly.Models;
 using Microsoft.Extensions.Logging;
 using Blazored.Toast.Services;
+using Blazored.LocalStorage;
+
 namespace BudgetTrackerAppBlazorWebassembly.Services
 {
     public class ExpensiveService : IExpensiveService
     {
         private List<Expense> _expenses = new List<Expense>();
-
+        private readonly ILocalStorageService _localStorage;
         public List<Expense> Expenses => _expenses;
 
         private readonly IToastService _toastService;
@@ -20,10 +22,11 @@ namespace BudgetTrackerAppBlazorWebassembly.Services
 
         private readonly ILogger _logger;
 
-        public ExpensiveService(ILogger<Expense> logger, IToastService toastService)
+        public ExpensiveService(ILogger<Expense> logger, IToastService toastService, ILocalStorageService localStorage)
         {
             _logger = logger;
             _toastService = toastService;
+            _localStorage = localStorage;
         }
         public void AddExpense()
         {
@@ -39,10 +42,22 @@ namespace BudgetTrackerAppBlazorWebassembly.Services
                 ExpenseNumber = null;
 
                 _toastService.ShowSuccess("Expense added successfully");
+                SaveExpensesAsync().ConfigureAwait(false);
             }
 
 
 
+        }
+
+        public async Task LoadExpensesAsync()
+        {
+            _expenses = await _localStorage.GetItemAsync<List<Expense>>("expenses") ?? new List<Expense>();
+        }
+
+        public async Task SaveExpensesAsync()
+        {
+           await _localStorage.SetItemAsync("expenses", _expenses);
+            
         }
     }
 }

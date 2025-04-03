@@ -1,22 +1,26 @@
 ﻿using BudgetTrackerAppBlazorWebassembly.Services;
 using Microsoft.Extensions.Logging;
 using Blazored.Toast.Services;
+using Blazored.LocalStorage;
+
 namespace BudgetTrackerAppBlazorWebassembly.Models
 {
     public class IncomeService : IIncomeService
     {
         private readonly ILogger _logger;
         private readonly IToastService _toastService;
+        private readonly ILocalStorageService _localStorage;
         private List<Income> _incomes = new List<Income>();
         public List<Income> Incomes => _incomes;
 
 
 
 
-        public IncomeService(ILogger<Income> logger, IToastService toastService)
+        public IncomeService(ILogger<Income> logger, IToastService toastService, ILocalStorageService localStorageService)
         {
             _logger = logger;
             _toastService = toastService;
+            _localStorage = localStorageService;
         }
 
         public decimal? IncomeNumber { get; set; } = null;
@@ -46,7 +50,18 @@ namespace BudgetTrackerAppBlazorWebassembly.Models
                 IncomeName = string.Empty;
                 IncomeNumber = null;
                 _toastService.ShowSuccess(LogMessage.IncomeAdded);
+                SaveIncomesAsync().ConfigureAwait(false);
             }
+        }
+
+        public async Task LoadIncomesAsync()
+        {
+            _incomes = await _localStorage.GetItemAsync<List<Income>>("incomes") ?? new List<Income>();
+        }
+
+        public async Task SaveIncomesAsync()
+        {
+            await _localStorage.SetItemAsync("incomes", _incomes);
         }
     }
 }

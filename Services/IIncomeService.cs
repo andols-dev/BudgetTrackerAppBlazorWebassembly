@@ -9,5 +9,7 @@ namespace BudgetTrackerAppBlazorWebassembly.Services
         List<Income> Incomes { get;  }
         public  decimal TotalIncome { get;}
         void AddIncome();
+        Task LoadIncomesAsync();
+        Task SaveIncomesAsync();
     }
 }

@@ -6,13 +6,16 @@
 @inject IIncomeService IncomeService
 @inject IToastService ToastService
 
-<PageTitle>Home</PageTitle>
+
 <BlazoredToasts Position="ToastPosition.TopRight"
 Timeout="2"
 ShowProgressBar="true" />
+<div class="jumbotron text-center">
+    <h1><i class="fas fa-wallet"></i> Budget Tracker</h1>
+    <p class="lead">Track your incomes and expenses easily</p>
+</div>
 <div class="container mt-5">
-    <h1 class="text-center mb-4">Hello, world!</h1>
-    <p class="text-center mb-5">Welcome to your new app.</p>
+
 
     <div class="row mb-4">
         <div class="col-md-6">
@@ -82,3 +85,11 @@ ShowProgressBar="true" />
     }
 
 </ul>
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await IncomeService.LoadIncomesAsync();
+        await ExpensiveService.LoadExpensesAsync();
+    }
+
+}
