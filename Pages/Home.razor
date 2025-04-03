@@ -8,8 +8,8 @@
 
 <PageTitle>Home</PageTitle>
 <BlazoredToasts Position="ToastPosition.TopRight"
-                Timeout="2"
-                ShowProgressBar="true" />
+Timeout="2"
+ShowProgressBar="true" />
 <div class="container mt-5">
     <h1 class="text-center mb-4">Hello, world!</h1>
     <p class="text-center mb-5">Welcome to your new app.</p>
@@ -47,22 +47,38 @@
 </div>
 <h1>Expenses</h1>
 <ul class="list-group">
-    @foreach (var item in ExpensiveService.Expenses)
+    @if(ExpensiveService.Expenses.Any())
     {
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-            @item.Name @item.Amount
-            <button class="btn btn-danger btn-sm">Remove Expense</button>
-        </li>
+        @foreach (var item in ExpensiveService.Expenses)
+        {
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                @item.Name @item.Amount
+                <button class="btn btn-danger btn-sm">Remove Expense</button>
+            </li>
+        }
     }
+    else
+    {
+        <li class="list-group-item">No expenses added yet.</li>
+    }
+    
 </ul>
 
 <h1 class="mt-4">Income</h1>
 <ul class="list-group">
-    @foreach (var item in IncomeService.Incomes)
+    @if (IncomeService.Incomes.Any())
     {
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-            @item.Name @item.Amount
-            <button class="btn btn-danger btn-sm">Remove Income</button>
-        </li>
+        @foreach (var item in IncomeService.Incomes)
+        {
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                @item.Name @item.Amount
+                <button class="btn btn-danger btn-sm">Remove Income</button>
+            </li>
+        }
     }
+    else
+    {
+        <li class="list-group-item">No income added yet.</li>
+    }
+
 </ul>
