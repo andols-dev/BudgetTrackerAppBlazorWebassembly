@@ -24,7 +24,7 @@ ShowProgressBar="true" />
                 <input type="text" class="form-control" @bind="IncomeService.IncomeName" placeholder="Income name" />
                 <input type="number" class="form-control" @bind="IncomeService.IncomeNumber" placeholder="Amount" />
 
-                <button class="btn btn-success" @onclick="IncomeService.AddIncome">Add Income</button>
+                <button class="btn btn-success" @onclick="IncomeService.AddIncome"><i class="fas fa-plus"></i>  Add Income</button>
             </div>
         </div>
         <div class="col-md-6">
@@ -32,14 +32,14 @@ ShowProgressBar="true" />
             <div class="input-group">
                 <input type="text" class="form-control" @bind="ExpensiveService.ExpenseName" placeholder="Expense Name" />
                 <input type="number" class="form-control" @bind="ExpensiveService.ExpenseNumber"  placeholder="Amount"/>
-                <button class="btn btn-success" @onclick="() => ExpensiveService.AddExpense()">Add Expense</button>
+                <button class="btn btn-success" @onclick="() => ExpensiveService.AddExpense()"><i class="fas fa-plus"></i> Add Expense</button>
             </div>
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-12">
-            <h3>Budget Summary</h3>
+            <h3><i class="fas fa-wallet"></i>  Budget Summary</h3>
             <ul class="list-group">
                 <li class="list-group-item">Total Income: <span class="float-end">@IncomeService.TotalIncome</span></li>
                 <li class="list-group-item">Total Expenses: <span class="float-end">@ExpensiveService.TotalExpenses</span></li>
@@ -48,7 +48,8 @@ ShowProgressBar="true" />
         </div>
     </div>
 </div>
-<h1>Expenses</h1>
+<div class="container mt-5">
+<h3><i class="fas fa-file-invoice-dollar"></i> Expenses</h3>
 <ul class="list-group">
     @if(ExpensiveService.Expenses.Any())
     {
@@ -67,7 +68,7 @@ ShowProgressBar="true" />
     
 </ul>
 
-<h1 class="mt-4">Income</h1>
+<h3 class="mt-4"><i class="fas fa-money-bill-wave"></i> Incomes</h3>
 <ul class="list-group">
     @if (IncomeService.Incomes.Any())
     {
@@ -85,6 +86,7 @@ ShowProgressBar="true" />
     }
 
 </ul>
+</div>
 @code {
     protected override async Task OnInitializedAsync()
     {
