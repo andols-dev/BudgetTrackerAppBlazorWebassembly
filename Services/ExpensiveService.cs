@@ -11,7 +11,10 @@ namespace BudgetTrackerAppBlazorWebassembly.Services
 
         private readonly IToastService _toastService;
 
+        string placeholder = "Enter Expense Name";
         public string ExpenseName { get; set; }
+
+        public decimal? ExpenseNumber { get; set; }
 
         private readonly ILogger _logger;
 
@@ -22,13 +25,22 @@ namespace BudgetTrackerAppBlazorWebassembly.Services
         }
         public void AddExpense()
         {
-
-            _logger.LogInformation($"{ExpenseName}");
             if (string.IsNullOrEmpty(ExpenseName))
             {
                 _toastService.ShowError("Please enter a name for the expense");
                 return;
             }
+            if (!string.IsNullOrEmpty(ExpenseName) && ExpenseNumber > 0)
+            {
+                _expenses.Add(new Expense(ExpenseName, (decimal)ExpenseNumber));
+                ExpenseName = string.Empty;
+                ExpenseNumber = null;
+
+                _toastService.ShowSuccess("Expense added successfully");
+            }
+
+
+
         }
     }
 }

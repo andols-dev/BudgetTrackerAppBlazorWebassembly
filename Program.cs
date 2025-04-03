@@ -1,5 +1,6 @@
 using Blazored.Toast;
 using BudgetTrackerAppBlazorWebassembly;
+using BudgetTrackerAppBlazorWebassembly.Models;
 using BudgetTrackerAppBlazorWebassembly.Services;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -9,6 +10,7 @@ builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddScoped<IExpensiveService, ExpensiveService>();
+builder.Services.AddScoped<IIncomeService, IncomeService>();
 builder.Services.AddBlazoredToast();
 builder.Services.AddLogging();
 

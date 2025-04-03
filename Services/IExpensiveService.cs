@@ -8,6 +8,8 @@ namespace BudgetTrackerAppBlazorWebassembly.Services
         List<Expense> Expenses { get;  }
         string ExpenseName { get; set; }
 
+        decimal? ExpenseNumber { get; set; }
+
         void AddExpense();
     }
 }

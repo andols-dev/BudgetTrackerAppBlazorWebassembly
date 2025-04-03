@@ -3,6 +3,7 @@
 @using BudgetTrackerAppBlazorWebassembly.Models
 @using BudgetTrackerAppBlazorWebassembly.Services
 @inject IExpensiveService ExpensiveService
+@inject IIncomeService IncomeService
 @inject IToastService ToastService
 
 <PageTitle>Home</PageTitle>
@@ -17,14 +18,17 @@
         <div class="col-md-6">
             <h3>Add Income</h3>
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Income name" />
-                <button class="btn btn-primary">Add Income</button>
+                <input type="text" class="form-control" @bind="IncomeService.IncomeName" placeholder="Income name" />
+                <input type="number" class="form-control" @bind="IncomeService.IncomeNumber" placeholder="Amount" />
+
+                <button class="btn btn-primary" @onclick="IncomeService.AddIncome">Add Income</button>
             </div>
         </div>
         <div class="col-md-6">
             <h3>Add Expense</h3>
             <div class="input-group">
                 <input type="text" class="form-control" @bind="ExpensiveService.ExpenseName" placeholder="Expense Name" />
+                <input type="number" class="form-control" @bind="ExpensiveService.ExpenseNumber"  placeholder="Amount"/>
                 <button class="btn btn-danger" @onclick="() => ExpensiveService.AddExpense()">Add Expense</button>
             </div>
         </div>
@@ -41,3 +45,18 @@
         </div>
     </div>
 </div>
+<h1>Expenses</h1>
+<ul>
+@foreach (var item in ExpensiveService.Expenses)
+{
+    <li>@item.Name @item.Amount</li>
+}
+</ul>
+
+<h1>Income</h1>
+<ul>
+    @foreach (var item in IncomeService.Incomes)
+    {
+        <li>@item.Name @item.Amount</li>
+    }
+</ul>
