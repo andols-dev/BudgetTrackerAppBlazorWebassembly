@@ -16,6 +16,8 @@ namespace BudgetTrackerAppBlazorWebassembly.Services
 
         public decimal? ExpenseNumber { get; set; }
 
+        public decimal TotalExpenses => _expenses.Sum(e => e.Amount);
+
         private readonly ILogger _logger;
 
         public ExpensiveService(ILogger<Expense> logger, IToastService toastService)

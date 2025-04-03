@@ -7,8 +7,8 @@
 @inject IToastService ToastService
 
 <PageTitle>Home</PageTitle>
-<BlazoredToasts Position="ToastPosition.BottomRight"
-                Timeout="10"
+<BlazoredToasts Position="ToastPosition.TopRight"
+                Timeout="2"
                 ShowProgressBar="true" />
 <div class="container mt-5">
     <h1 class="text-center mb-4">Hello, world!</h1>
@@ -21,7 +21,7 @@
                 <input type="text" class="form-control" @bind="IncomeService.IncomeName" placeholder="Income name" />
                 <input type="number" class="form-control" @bind="IncomeService.IncomeNumber" placeholder="Amount" />
 
-                <button class="btn btn-primary" @onclick="IncomeService.AddIncome">Add Income</button>
+                <button class="btn btn-success" @onclick="IncomeService.AddIncome">Add Income</button>
             </div>
         </div>
         <div class="col-md-6">
@@ -29,7 +29,7 @@
             <div class="input-group">
                 <input type="text" class="form-control" @bind="ExpensiveService.ExpenseName" placeholder="Expense Name" />
                 <input type="number" class="form-control" @bind="ExpensiveService.ExpenseNumber"  placeholder="Amount"/>
-                <button class="btn btn-danger" @onclick="() => ExpensiveService.AddExpense()">Add Expense</button>
+                <button class="btn btn-success" @onclick="() => ExpensiveService.AddExpense()">Add Expense</button>
             </div>
         </div>
     </div>
@@ -38,25 +38,31 @@
         <div class="col-md-12">
             <h3>Budget Summary</h3>
             <ul class="list-group">
-                <li class="list-group-item">Total Income: <span class="float-end">$0</span></li>
-                <li class="list-group-item">Total Expenses: <span class="float-end">$0</span></li>
-                <li class="list-group-item">Remaining Balance: <span class="float-end">$0</span></li>
+                <li class="list-group-item">Total Income: <span class="float-end">@IncomeService.TotalIncome</span></li>
+                <li class="list-group-item">Total Expenses: <span class="float-end">@ExpensiveService.TotalExpenses</span></li>
+                <li class="list-group-item">Remaining Balance: <span class="float-end">@(IncomeService.TotalIncome - ExpensiveService.TotalExpenses)</span></li>
             </ul>
         </div>
     </div>
 </div>
 <h1>Expenses</h1>
-<ul>
-@foreach (var item in ExpensiveService.Expenses)
-{
-    <li>@item.Name @item.Amount</li>
-}
+<ul class="list-group">
+    @foreach (var item in ExpensiveService.Expenses)
+    {
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            @item.Name @item.Amount
+            <button class="btn btn-danger btn-sm">Remove Expense</button>
+        </li>
+    }
 </ul>
 
-<h1>Income</h1>
-<ul>
+<h1 class="mt-4">Income</h1>
+<ul class="list-group">
     @foreach (var item in IncomeService.Incomes)
     {
-        <li>@item.Name @item.Amount</li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            @item.Name @item.Amount
+            <button class="btn btn-danger btn-sm">Remove Income</button>
+        </li>
     }
 </ul>

@@ -2,7 +2,7 @@
 {
     public class Income
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public decimal Amount { get; set; }
     
@@ -10,6 +10,7 @@
 
         public Income(string name, decimal amount)
         {
+            Id = Guid.NewGuid();
             Name = name;
             Amount = amount;
             Date = DateTime.UtcNow;

@@ -21,7 +21,8 @@ namespace BudgetTrackerAppBlazorWebassembly.Models
 
         public decimal? IncomeNumber { get; set; } = null;
         public string IncomeName { get; set; }
-        
+
+        public decimal TotalIncome => _incomes.Sum(i => i.Amount);
 
         public void AddIncome()
         {
@@ -30,11 +31,11 @@ namespace BudgetTrackerAppBlazorWebassembly.Models
             {
                 if (string.IsNullOrEmpty(IncomeName))
                 {
-                    _toastService.ShowError("Please enter a name for the income");
+                    _toastService.ShowError(LogMessage.IncomeNameEmpty);
                 }
                 if (IncomeNumber == null)
                 {
-                    _toastService.ShowError("Please enter a number for the income");
+                    _toastService.ShowError(LogMessage.IncomeNumberEmpty);
                 }
 
             }
@@ -44,7 +45,7 @@ namespace BudgetTrackerAppBlazorWebassembly.Models
                 _incomes.Add(new Income(IncomeName, (decimal)IncomeNumber));
                 IncomeName = string.Empty;
                 IncomeNumber = null;
-                _toastService.ShowSuccess("Income added successfully");
+                _toastService.ShowSuccess(LogMessage.IncomeAdded);
             }
         }
     }

@@ -7,6 +7,7 @@ namespace BudgetTrackerAppBlazorWebassembly.Services
         decimal? IncomeNumber { get; set; }
         string IncomeName { get; set; }
         List<Income> Incomes { get;  }
+        public  decimal TotalIncome { get;}
         void AddIncome();
     }
 }
