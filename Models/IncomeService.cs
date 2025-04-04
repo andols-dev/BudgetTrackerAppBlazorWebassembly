@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Blazored.Toast.Services;
 using Blazored.LocalStorage;
+using System.Threading.Tasks;
 
 namespace BudgetTrackerAppBlazorWebassembly.Models
 {
@@ -63,5 +64,21 @@ namespace BudgetTrackerAppBlazorWebassembly.Models
         {
             await _localStorage.SetItemAsync("incomes", _incomes);
         }
+
+
+
+        public void RemoveIncome(Guid id)
+        {
+            var income = _incomes.FirstOrDefault(i => i.Id == id);
+            if (income != null) {
+                _incomes.Remove(income);
+                _toastService.ShowSuccess(LogMessage.IncomeRemoved);
+                SaveIncomesAsync().ConfigureAwait(false);
+            }
+            else
+            {
+                _toastService.ShowError(LogMessage.NotFound);
+            }
+        }
     }
-}
+    }

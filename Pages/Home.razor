@@ -57,7 +57,7 @@ ShowProgressBar="true" />
         {
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 @item.Name @item.Amount
-                <button class="btn btn-danger btn-sm">Remove Expense</button>
+                <button class="btn btn-danger btn-sm" @onclick="() => ExpensiveService.RemoveExpense(item.Id)">Remove Expense</button>
             </li>
         }
     }
@@ -76,7 +76,7 @@ ShowProgressBar="true" />
         {
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 @item.Name @item.Amount
-                <button class="btn btn-danger btn-sm">Remove Income</button>
+                <button class="btn btn-danger btn-sm" @onclick="() => IncomeService.RemoveIncome(item.Id)">Remove Income</button>
             </li>
         }
     }

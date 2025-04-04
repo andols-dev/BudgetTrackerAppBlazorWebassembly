@@ -30,10 +30,16 @@ namespace BudgetTrackerAppBlazorWebassembly.Services
         }
         public void AddExpense()
         {
-            if (string.IsNullOrEmpty(ExpenseName))
+            if (string.IsNullOrEmpty(ExpenseName) || ExpenseNumber == null)
             {
-                _toastService.ShowError("Please enter a name for the expense");
-                return;
+                if (string.IsNullOrEmpty(ExpenseName))
+                {
+                    _toastService.ShowError(LogMessage.ExpenseNameEmpty);
+                }
+                if (ExpenseNumber == null)
+                {
+                    _toastService.ShowError(LogMessage.ExpenseNumberEmpty);
+                }
             }
             if (!string.IsNullOrEmpty(ExpenseName) && ExpenseNumber > 0)
             {
@@ -41,12 +47,24 @@ namespace BudgetTrackerAppBlazorWebassembly.Services
                 ExpenseName = string.Empty;
                 ExpenseNumber = null;
 
-                _toastService.ShowSuccess("Expense added successfully");
+                _toastService.ShowSuccess(LogMessage.ExpenseAdded);
                 SaveExpensesAsync().ConfigureAwait(false);
             }
+        }
+        public void RemoveExpense(Guid id)
+        {
+            var expense = _expenses.FirstOrDefault(i => i.Id == id);
+            if (expense != null)
+            {
+                _expenses.Remove(expense);
+                _toastService.ShowSuccess(LogMessage.ExpenseRemoved);
+                SaveExpensesAsync().ConfigureAwait(false);
+            }
+            else
+            {
+                _toastService.ShowError(LogMessage.NotFound);
 
-
-
+            }
         }
 
         public async Task LoadExpensesAsync()
