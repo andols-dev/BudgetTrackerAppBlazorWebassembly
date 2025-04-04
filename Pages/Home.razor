@@ -2,7 +2,7 @@
 @using Blazored.Toast.Configuration
 @using BudgetTrackerAppBlazorWebassembly.Models
 @using BudgetTrackerAppBlazorWebassembly.Services
-@inject IExpensiveService ExpensiveService
+@inject IExpenseService ExpenseService
 @inject IIncomeService IncomeService
 @inject IToastService ToastService
 
@@ -30,9 +30,9 @@ ShowProgressBar="true" />
         <div class="col-md-6">
             <h3>Add Expense</h3>
             <div class="input-group">
-                <input type="text" class="form-control" @bind="ExpensiveService.ExpenseName" placeholder="Expense Name" />
-                <input type="number" class="form-control" @bind="ExpensiveService.ExpenseNumber"  placeholder="Amount"/>
-                <button class="btn btn-success" @onclick="() => ExpensiveService.AddExpense()"><i class="fas fa-plus"></i> Add Expense</button>
+                <input type="text" class="form-control" @bind="ExpenseService.ExpenseName" placeholder="Expense Name" />
+                <input type="number" class="form-control" @bind="ExpenseService.ExpenseNumber"  placeholder="Amount"/>
+                <button class="btn btn-success" @onclick="() => ExpenseService.AddExpense()"><i class="fas fa-plus"></i> Add Expense</button>
             </div>
         </div>
     </div>
@@ -42,8 +42,8 @@ ShowProgressBar="true" />
             <h3><i class="fas fa-wallet"></i>  Budget Summary</h3>
             <ul class="list-group">
                 <li class="list-group-item">Total Income: <span class="float-end">@IncomeService.TotalIncome</span></li>
-                <li class="list-group-item">Total Expenses: <span class="float-end">@ExpensiveService.TotalExpenses</span></li>
-                <li class="list-group-item">Remaining Balance: <span class="float-end">@(IncomeService.TotalIncome - ExpensiveService.TotalExpenses)</span></li>
+                <li class="list-group-item">Total Expenses: <span class="float-end">@ExpenseService.TotalExpenses</span></li>
+                <li class="list-group-item">Remaining Balance: <span class="float-end">@(IncomeService.TotalIncome - ExpenseService.TotalExpenses)</span></li>
             </ul>
         </div>
     </div>
@@ -51,13 +51,13 @@ ShowProgressBar="true" />
 <div class="container mt-5">
 <h3><i class="fas fa-file-invoice-dollar"></i> Expenses</h3>
 <ul class="list-group">
-    @if(ExpensiveService.Expenses.Any())
+    @if(ExpenseService.Expenses.Any())
     {
-        @foreach (var item in ExpensiveService.Expenses)
+        @foreach (var item in ExpenseService.Expenses)
         {
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 @item.Name @item.Amount
-                <button class="btn btn-danger btn-sm" @onclick="() => ExpensiveService.RemoveExpense(item.Id)">Remove Expense</button>
+                <button class="btn btn-danger btn-sm" @onclick="() => ExpenseService.RemoveExpense(item.Id)">Remove Expense</button>
             </li>
         }
     }
@@ -91,7 +91,7 @@ ShowProgressBar="true" />
     protected override async Task OnInitializedAsync()
     {
         await IncomeService.LoadIncomesAsync();
-        await ExpensiveService.LoadExpensesAsync();
+        await ExpenseService.LoadExpensesAsync();
     }
 
 }

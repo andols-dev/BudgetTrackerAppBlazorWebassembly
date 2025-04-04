@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace BudgetTrackerAppBlazorWebassembly.Services
 {
-    public interface IExpensiveService
+    public interface IExpenseService
     {
         List<Expense> Expenses { get;  }
         string ExpenseName { get; set; }

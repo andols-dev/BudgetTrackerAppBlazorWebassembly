@@ -5,7 +5,7 @@ using Blazored.LocalStorage;
 
 namespace BudgetTrackerAppBlazorWebassembly.Services
 {
-    public class ExpensiveService : IExpensiveService
+    public class ExpenseService : IExpenseService
     {
         private List<Expense> _expenses = new List<Expense>();
         private readonly ILocalStorageService _localStorage;
@@ -22,7 +22,7 @@ namespace BudgetTrackerAppBlazorWebassembly.Services
 
         private readonly ILogger _logger;
 
-        public ExpensiveService(ILogger<Expense> logger, IToastService toastService, ILocalStorageService localStorage)
+        public ExpenseService(ILogger<Expense> logger, IToastService toastService, ILocalStorageService localStorage)
         {
             _logger = logger;
             _toastService = toastService;
